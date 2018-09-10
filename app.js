@@ -15,8 +15,6 @@ function locationsOfSubstring(substring, string) {
     return indices;
 }
 
-
-
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -68,13 +66,10 @@ $("#qwerty").click((event) => {
                 }
             }
 
-            for (var i = 0; i < $("#phrase ul".length); i += 1) {
-                if ($("#phrase ul li.show").length === phrase.length) {
-                    winGame();
-                }
-            }
         }
-
+        if ($("#phrase ul li.show").length === phrase.replace(/\s/g, '').length) {
+            winGame();
+        }
     }
 
 );
@@ -82,7 +77,6 @@ $("#qwerty").click((event) => {
 function loseALife() {
     if (lives <= 1) {
         $("#scoreboard ol li").eq(lives - 1).remove();
-        alert("You lose! The Game")
         loseGame();
 
     } else {
@@ -100,4 +94,5 @@ function loseGame() {
 function winGame() {
     $("#gameDiv").addClass("hidden");
     $(".win").slideDown(600);
+
 }
