@@ -1,4 +1,4 @@
-let phrases = ["life is a lie", "flat earth", "triangular universe", "web development", "apple pie"];
+let phrases = ["life is a lie", "flat earth", "triangular universe", "web developer", "apple pie"];
 var phrase;
 var lives = 5;
 
@@ -20,7 +20,7 @@ function randomInt(min, max) {
 }
 
 function displayPhrase() {
-    phrase = phrases[randomInt(0, 4)];
+    phrase = phrases[randomInt(0, phrases.length - 1)];
     console.log(phrase);
     for (var i = 0; i < phrase.length; i += 1) {
         var character = phrase[i];
@@ -49,29 +49,17 @@ $("#qwerty").click((event)=>{
 
         console.log(matches.length);
 
-
+        if (matches.length === 0) {
+            loseALife();
+        }
+        else {
         for (var i = 0; i < matches.length; i += 1) {
             const match = matches[i];
             console.log("Match --  " + match);
-
             $(".letter").eq(match).addClass("show");
           console.log( $(".letter").eq(match));
-
-
-                // indexs of the matches
-                // go through each index and update th letter accoringly 
-
-// console.log($(".letter").eq(phrase.replace(/\s/g, '').toLowerCase()));
         }
-        //     if (phrase.replace(/\s/g, '').toLowerCase().locationsOfSubstring(letter) > -1) {
-        //         $(".letter").eq(phrase.replace(/\s/g, '').toLowerCase().indexOf(letter)).addClass("show");
-
-
-        // }
-        // if (phrase.replace(/\s/g, '').toLowerCase().indexOf(letter) > -1) {
-
-        //     loseALife();
-        // }
+    }
     }
 
 }
@@ -81,10 +69,17 @@ $("#qwerty").click((event)=>{
 function loseALife() {
     if (lives <= 1) {
         $("#scoreboard ol li").eq(lives - 1).remove();
-        alert("You lose!")
+        alert("You lose! The Game")
 
     } else {
         lives -= 1;
         $("#scoreboard ol li").eq(lives - 1).remove();
     }
+}
+function loseGame() {
+
+}
+
+function winGame() {
+
 }

@@ -193,3 +193,7 @@ transform:scale(1.2);
 .lose a {
   color: var(--color-lose);
 }
+
+.lose {
+
+}
