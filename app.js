@@ -6,15 +6,17 @@ function disable(selector) {
     $(selector).prop("disabled", true);
 }
 
-function locationsOfSubstring(substring,string){
+function locationsOfSubstring(substring, string) {
     var str = string;
     var indices = [];
-    for(var i=0; i<str.length;i++) {
+    for (var i = 0; i < str.length; i++) {
         if (str[i] === substring) indices.push(i);
     }
     return indices;
-  }
-  
+}
+
+
+
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -32,37 +34,48 @@ function displayPhrase() {
         $("#phrase ul").append(letter);
     }
 }
-$(".btn__reset").click(()=>{
-    $("#overlay").slideUp(600);
-}
-);
+$(".start a").click(() => {
+    $(".overlay").slideUp(600);
+});
+$(".lose a").click(() => {
+    location.reload();
+});
+$(".win a").click(() => {
+    location.reload();
+});
+
 displayPhrase();
-$("#qwerty").click((event)=>{
+$("#qwerty").click((event) => {
 
-    if (event.target.tagName === "BUTTON") {
-        const key = event.target;
-        const letter = key.innerText;
-        $(key).addClass("disabled");
-        disable(key);
+        if (event.target.tagName === "BUTTON") {
+            const key = event.target;
+            const letter = key.innerText;
+            $(key).addClass("disabled");
+            disable(key);
 
-        const matches = locationsOfSubstring(letter,phrase.replace(/\s/g, ''));
+            const matches = locationsOfSubstring(letter, phrase.replace(/\s/g, ''));
 
-        console.log(matches.length);
+            console.log(matches.length);
 
-        if (matches.length === 0) {
-            loseALife();
+            if (matches.length === 0) {
+                loseALife();
+            } else {
+                for (var i = 0; i < matches.length; i += 1) {
+                    const match = matches[i];
+                    console.log("Match --  " + match);
+                    $(".letter").eq(match).addClass("show");
+                    console.log($(".letter").eq(match));
+                }
+            }
+
+            for (var i = 0; i < $("#phrase ul".length); i += 1) {
+                if ($("#phrase ul li.show").length === phrase.length) {
+                    winGame();
+                }
+            }
         }
-        else {
-        for (var i = 0; i < matches.length; i += 1) {
-            const match = matches[i];
-            console.log("Match --  " + match);
-            $(".letter").eq(match).addClass("show");
-          console.log( $(".letter").eq(match));
-        }
-    }
-    }
 
-}
+    }
 
 );
 
@@ -70,16 +83,21 @@ function loseALife() {
     if (lives <= 1) {
         $("#scoreboard ol li").eq(lives - 1).remove();
         alert("You lose! The Game")
+        loseGame();
 
     } else {
         lives -= 1;
         $("#scoreboard ol li").eq(lives - 1).remove();
     }
 }
+
 function loseGame() {
+    $("#gameDiv").addClass("hidden");
+    $(".lose").slideDown(600);
 
 }
 
 function winGame() {
-
+    $("#gameDiv").addClass("hidden");
+    $(".win").slideDown(600);
 }
