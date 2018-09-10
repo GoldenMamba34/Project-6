@@ -43,31 +43,31 @@ $("#qwerty").click((event) => {
         disable(key);
         for (var i = 0; i < phrase.length; i += 1) {
             var character = phrase.replace(/\s/g, '').toLowerCase()[i];
-
             if (letter.toLowerCase() === character) {
                 $(".letter").eq(i).addClass("show");
-                alert("You lost a life");
+                console.log(`You lost a life [SHOW]  --  isNotInPhrase: ${isNotInPhrase}  letter.toLowerCase() === character: ${letter.toLowerCase() === character} index: ${i} lives: ${lives} character: ${character} letter: ${letter}`);
+                   isNotInPhrase = true;
             }
              else 
             {
+            
                 if (isNotInPhrase === false) {
                     loseALife();
-                    alert("You lost a life");
+                    console.log(`You lost a life [lose a life]  --  isNotInPhrase: ${isNotInPhrase}  letter.toLowerCase() === character: ${letter.toLowerCase() === character} index: ${i} lives: ${lives} character: ${character} letter: ${letter}`);
                     isNotInPhrase = true;
                 }
                
             }
 
+
         }
-    }
-})
+        }
+    });
 
 function loseALife() {
     if (lives <= 0) {
-
     } else {
         lives -= 1;
        $("#scoreboard ol li").eq(lives - 1).remove();
-
     }
 }
