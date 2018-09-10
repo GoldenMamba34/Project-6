@@ -18,6 +18,7 @@ function randomInt(min, max) {
 
 function displayPhrase() {
     phrase = phrases[randomInt(0, 4)];
+    console.log(phrase);
     for (var i = 0; i < phrase.length; i += 1) {
         var character = phrase[i];
         if (character === " ") {
@@ -33,22 +34,24 @@ $(".btn__reset").click(() => {
 });
 displayPhrase();
 $("#qwerty").click((event) => {
-    console.log(phrase);
+
     if (event.target.tagName === "BUTTON") {
         const key = event.target;
-        const letter = key.textContent;
+        const letter = key.innerText;
         $(key).addClass("disabled");
         disable(key);
             for (var i = 0; i < phrase.length; i += 1) {
-                var character = phrase[i];
-        // console.log(phrase[i],phrase.length, i);
-        console.log("Letter : " + letter.toLowerCase() + " character " + character.toLowerCase());
-                if (letter.toLowerCase() === character.toLowerCase()) {
+                var character = phrase.replace(/\s/g, '').toLowerCase()[i];
+
+        
+                if (letter.toLowerCase() === character) {
                     $(".letter").eq(i).addClass("show");
+                    console.log($(".letter").eq(i), i);
                     console.log("Match -      Letter : " + letter.toLowerCase() + " character " + character.toLowerCase());
+                    console.log("\nPhrase: " + phrase + " \nIndex: " + i + "\n Character: " + character.toLowerCase() + " \nLetter: " + letter.toLowerCase());
                 }
 
-                console.log("Letter : " + letter.toLowerCase() + " character " + character.toLowerCase());
+    
             }
     }
 })
