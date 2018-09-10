@@ -36,34 +36,38 @@ displayPhrase();
 $("#qwerty").click((event) => {
 
     if (event.target.tagName === "BUTTON") {
+        isNotInPhrase = false;
         const key = event.target;
         const letter = key.innerText;
         $(key).addClass("disabled");
         disable(key);
-            for (var i = 0; i < phrase.length; i += 1) {
-                var character = phrase.replace(/\s/g, '').toLowerCase()[i];
+        for (var i = 0; i < phrase.length; i += 1) {
+            var character = phrase.replace(/\s/g, '').toLowerCase()[i];
 
-        
-                if (letter.toLowerCase() === character) {
-                    $(".letter").eq(i).addClass("show");
-                    console.log($(".letter").eq(i), i);
-                    console.log("Match -      Letter : " + letter.toLowerCase() + " character " + character.toLowerCase());
-                    console.log("\nPhrase: " + phrase + " \nIndex: " + i + "\n Character: " + character.toLowerCase() + " \nLetter: " + letter.toLowerCase());
-                }
-
-    
+            if (letter.toLowerCase() === character) {
+                $(".letter").eq(i).addClass("show");
+                alert("You lost a life");
             }
+             else 
+            {
+                if (isNotInPhrase === false) {
+                    loseALife();
+                    alert("You lost a life");
+                    isNotInPhrase = true;
+                }
+               
+            }
+
+        }
     }
 })
 
 function loseALife() {
-    if (lives <= 0) {} else {
+    if (lives <= 0) {
+
+    } else {
         lives -= 1;
-        $("#scoreboard ol li")[lives].remove();
+       $("#scoreboard ol li").eq(lives - 1).remove();
+
     }
-}
-
-function guess(letter) {
-
-
 }
